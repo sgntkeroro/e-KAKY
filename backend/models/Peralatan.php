@@ -47,4 +47,9 @@ class Peralatan extends \yii\db\ActiveRecord
             'peralatan_hargaSeunit' => 'Peralatan Harga Seunit',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

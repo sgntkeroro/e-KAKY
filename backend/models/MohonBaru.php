@@ -45,4 +45,9 @@ class MohonBaru extends \yii\db\ActiveRecord
             'mohonBaru_tahapPengajian' => 'Mohon Baru Tahap Pengajian',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

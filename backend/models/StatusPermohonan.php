@@ -40,4 +40,9 @@ class StatusPermohonan extends \yii\db\ActiveRecord
             'statusPermohonan_nama' => 'Status Permohonan Nama',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

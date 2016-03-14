@@ -40,4 +40,9 @@ class TahunSedia extends \yii\db\ActiveRecord
             'tahunSedia_tahun' => 'Tahun Sedia Tahun',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

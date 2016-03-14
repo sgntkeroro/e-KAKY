@@ -13,6 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\db\Query;
 
 /**
  * PermohonanController implements the CRUD actions for Permohonan model.
@@ -54,9 +55,33 @@ class PermohonanController extends Controller
      */
     public function actionView($id)
     {
+
+        $query = new Query;
+        $query ->select([
+            'tbl_permohonan.user_id as userID',
+            'tbl_permohonan.permohonan_tarikh as tarikhPermohonan',
+            'tbl_permohonan.kelulusanJK_id as kelulusanJK',
+            'tbl_permohonan.katPermohonan_id as katPermohonan',
+            'tbl_permohonan.permohonan_tujuanBeli as tujuanPembelian',
+            'tbl_permohonan.permohonan_jenisPeruntukan as jenisPeruntukan',
+            'tbl_permohonan.tahunSedia_id as tahunSedia',
+            'tbl_permohonan.permohonan_lokasiCadangan as lokasiCadangan',
+            'tbl_permohonan.statusPermohonan_id as statusPermohonan',
+            'tbl_peralatan.peralatan_nama as peralatanNama',
+            'tbl_peralatan.peralatan_kuantiti as peralatanKuantiti',
+            'tbl_peralatan.peralatan_hargaSeunit as peralatanHarga'
+            ])
+               ->from('tbl_peralatan','tbl_permohonan')
+               ->innerJoin('tbl_permohonan','tbl_peralatan.permohonan_id=tbl_permohonan.permohonan_id')
+               ->where('tbl_permohonan.permohonan_id = "'.$id.'"');
+               $command=$query->createCommand();
+               $data=$command->queryAll();
+
+        return  $this->render('view' ,[
+            'view'=>$data,
+            ]);    
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'peralatan' => $this->findModel($id),
         ]);
     }
 

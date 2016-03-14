@@ -40,4 +40,9 @@ class KelulusanJk extends \yii\db\ActiveRecord
             'kelulusanJK_nama' => 'Kelulusan Jk Nama',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

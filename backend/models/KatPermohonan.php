@@ -41,4 +41,9 @@ class KatPermohonan extends \yii\db\ActiveRecord
             'katPermohonan_nama' => 'Kat Permohonan Nama',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

@@ -2,7 +2,6 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 
-$this->title = $model->permohonan_id;
 $this->params['breadcrumbs'][] = ['label' => 'Permohonan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,26 +16,30 @@ $this->params['breadcrumbs'][] = $this->title;
                             <th>ID Pemohon</th>
                             <th>Tarikh Permohonan</th>
                             <th>Kelulusan Jawatankuasa Teknikal Berkaitan</th>
+                            <th>Kategori Permohonan</th>
                             <th>Tujuan Pembelian</th>
-                            <th>Kategori Permohonan Peralatan</th>
-                            <th>Jenis Peruntukan</th>                            
-                            <th>Sesi Pengajian / Tahun Peralatan Wajib Disediakan</th>                            
-                            <th>Cadangan Lokasi Peralatan Ditempatkan Sekiranya Lulus</th>                            
+                            <th>Jenis Peruntukan</th>
+                            <th>Tahun Peralatan Disediakan</th>
+                            <th>Lokasi Cadangan</th>
                             <th>Status Permohonan</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><?= $model->user_id ?></td>
-                            <td><?= $model->permohonan_tarikh ?></td>
-                            <td><?= $model->kelulusanJK_id ?></td>
-                            <td><?= $model->permohonan_tujuanBeli ?></td>
-                            <td><?= $model->katPermohonan_id ?></td>
-                            <td><?= $model->permohonan_jenisPeruntukan ?></td>
-                            <td><?= $model->tahunSedia_id ?></td>
-                            <td><?= $model->permohonan_lokasiCadangan ?></td>
-                            <td><?= $model->statusPermohonan_id ?></td>
-                        </tr>
+                    <tbody>                        
+                            <?php 
+                                foreach ($view as $row){
+                                    echo "<tr>";
+                                    echo "<td>".$row['userID']."</td>";
+                                    echo "<td>".$row['tarikhPermohonan']."</td>";
+                                    echo "<td>".$row['kelulusanJK']."</td>";
+                                    echo "<td>".$row['katPermohonan']."</td>";
+                                    echo "<td>".$row['tujuanPembelian']."</td>";
+                                    echo "<td>".$row['jenisPeruntukan']."</td>";
+                                    echo "<td>".$row['tahunSedia']."</td>";
+                                    echo "<td>".$row['lokasiCadangan']."</td>";
+                                    echo "<td>".$row['statusPermohonan']."</td>";
+                                    echo "</tr>";
+                                }
+                            ?>                        
                     </tbody>
                 </table>
             </div>
@@ -48,20 +51,22 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="table-responsive" align="center">
                 <table class="table table-bordered table-hover table-striped" align="center">
                     <thead>
-                        <tr class="success" align="center">
+                        <tr class="warning" align="center">
                             <th>Peralatan Yang Diperlukan</th>
                             <th>Kuantiti</th>
                             <th>Harga Seunit</th>
-                            <th>Jumlah Harga</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><?= $modelPeralatan->peralatan_nama ?></td>
-                            <td><?= $modelPeralatan->peralatan_kuantiti ?></td>
-                            <td><?= $modelPeralatan->peralatan_hargaSeunit ?></td>
-                            <td><?= $modelPeralatan->peralatan_hargaSeunit ?></td>
-                        </tr>
+                    <tbody>                        
+                            <?php 
+                                foreach ($view as $row){
+                                    echo "<tr>";
+                                    echo "<td>".$row['peralatanNama']."</td>";
+                                    echo "<td>".$row['peralatanKuantiti']."</td>";
+                                    echo "<td>".$row['peralatanHarga']."</td>";
+                                    echo "</tr>";
+                                }
+                            ?>                        
                     </tbody>
                 </table>
             </div>

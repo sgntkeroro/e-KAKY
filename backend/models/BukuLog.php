@@ -50,4 +50,9 @@ class BukuLog extends \yii\db\ActiveRecord
             'bukuLog_fail' => 'Buku Log Fail',
         ];
     }
+
+    public function getPermohonan()
+    {
+        return $this->hasOne(Permohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
 }

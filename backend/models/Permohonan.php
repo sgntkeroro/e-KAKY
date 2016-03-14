@@ -50,17 +50,97 @@ class Permohonan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_id' => 'Permohonan ID',
-            'user_id' => 'User ID',
-            'permohonan_tarikh' => 'Permohonan Tarikh',
-            'kelulusanJK_id' => 'Kelulusan Jk ID',
-            'katPermohonan_id' => 'Kat Permohonan ID',
-            'permohonan_tujuanBeli' => 'Permohonan Tujuan Beli',
-            'permohonan_jenisPeruntukan' => 'Permohonan Jenis Peruntukan',
-            'tahunSedia_id' => 'Tahun Sedia ID',
-            'permohonan_lokasiCadangan' => 'Permohonan Lokasi Cadangan',
-            'statusPermohonan_id' => 'Status Permohonan ID',
-            'file' => 'Buku Log Fail',
+            'permohonan_id' => '',
+            'user_id' => '',
+            'permohonan_tarikh' => '',
+            'kelulusanJK_id' => 'Kelulusan Jawatankuasa Teknikal Berkaitan',
+            'katPermohonan_id' => '',
+            'permohonan_tujuanBeli' => 'Tujuan Pembelian',
+            'permohonan_jenisPeruntukan' => 'Jenis Peruntukan',
+            'tahunSedia_id' => 'Sesi Pengajian / Tahun Peralatan Wajib Disediakan',
+            'permohonan_lokasiCadangan' => 'Cadangan Lokasi Peralatan Ditempatkan Sekiranya Diluluskan',
+            'statusPermohonan_id' => '',
+            'file' => 'Buku Log',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getKatPermohonan()
+    {
+        return $this->hasOne(KatPermohonan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getKelulusanJk()
+    {
+        return $this->hasOne(KelulusanJk::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getTahunSedia()
+    {
+        return $this->hasOne(TahunSedia::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getBukuLog()
+    {
+        return $this->hasMany(BukuLog::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getMohonBaru()
+    {
+        return $this->hasMany(MohonBaru::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getPeralatan()
+    {
+        return $this->hasMany(Peralatan::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getMesyuarat()
+    {
+        return $this->hasMany(Mesyuarat::className(), ['permohonan_id' => 'permohonan_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getStatusPermohonan()
+    {
+        return $this->hasMany(StatusPermohonan::className(), ['permohonan_id' => 'permohonan_id']);
     }
 }
