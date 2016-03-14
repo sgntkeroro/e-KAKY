@@ -1,44 +1,69 @@
 <?php
-
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\Permohonan */
+use kartik\detail\DetailView;
 
 $this->title = $model->permohonan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Permohonan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="permohonan-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->permohonan_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->permohonan_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'permohonan_id',
-            'user_id',
-            'permohonan_tarikh',
-            'kelulusanJK_id',
-            'katPermohonan_id',
-            'permohonan_tujuanBeli',
-            'permohonan_jenisPeruntukan',
-            'tahunSedia_id',
-            'permohonan_lokasiCadangan',
-            'statusPermohonan_id',
-        ],
-    ]) ?>
-
+<div class="row" align="center">
+    <div class="col-lg-15" align="center">
+        <h4>BUTIRAN PERMOHONAN PEMBELIAN PERALATAN</h4><br>
+            <div class="table-responsive" align="center">
+                <table class="table table-bordered table-hover table-striped" align="center">
+                    <thead>
+                        <tr class="success" align="center">
+                            <th>ID Pemohon</th>
+                            <th>Tarikh Permohonan</th>
+                            <th>Kelulusan Jawatankuasa Teknikal Berkaitan</th>
+                            <th>Tujuan Pembelian</th>
+                            <th>Kategori Permohonan Peralatan</th>
+                            <th>Jenis Peruntukan</th>                            
+                            <th>Sesi Pengajian / Tahun Peralatan Wajib Disediakan</th>                            
+                            <th>Cadangan Lokasi Peralatan Ditempatkan Sekiranya Lulus</th>                            
+                            <th>Status Permohonan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?= $model->user_id ?></td>
+                            <td><?= $model->permohonan_tarikh ?></td>
+                            <td><?= $model->kelulusanJK_id ?></td>
+                            <td><?= $model->permohonan_tujuanBeli ?></td>
+                            <td><?= $model->katPermohonan_id ?></td>
+                            <td><?= $model->permohonan_jenisPeruntukan ?></td>
+                            <td><?= $model->tahunSedia_id ?></td>
+                            <td><?= $model->permohonan_lokasiCadangan ?></td>
+                            <td><?= $model->statusPermohonan_id ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+<div class="row" align="center">
+    <div class="col-lg-15" align="center">
+        <br><br><h4>JADUAL PERALATAN</h4><br>
+            <div class="table-responsive" align="center">
+                <table class="table table-bordered table-hover table-striped" align="center">
+                    <thead>
+                        <tr class="success" align="center">
+                            <th>Peralatan Yang Diperlukan</th>
+                            <th>Kuantiti</th>
+                            <th>Harga Seunit</th>
+                            <th>Jumlah Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?= $modelPeralatan->peralatan_nama ?></td>
+                            <td><?= $modelPeralatan->peralatan_kuantiti ?></td>
+                            <td><?= $modelPeralatan->peralatan_hargaSeunit ?></td>
+                            <td><?= $modelPeralatan->peralatan_hargaSeunit ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
 </div>

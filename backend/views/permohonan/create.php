@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Permohonan */
 
-$this->title = 'Create Permohonan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonans', 'url' => ['index']];
+$this->title = 'Borang Permohonan';
+$this->params['breadcrumbs'][] = ['label' => 'Permohonan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-create">

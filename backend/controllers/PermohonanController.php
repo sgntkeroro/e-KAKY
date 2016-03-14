@@ -7,6 +7,7 @@ use backend\models\Permohonan;
 use backend\models\MohonBaru;
 use backend\models\BukuLog;
 use backend\models\Peralatan;
+use backend\models\Model;
 use backend\models\PermohonanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -34,6 +35,7 @@ class PermohonanController extends Controller
      * Lists all Permohonan models.
      * @return mixed
      */
+
     public function actionIndex()
     {
         $searchModel = new PermohonanSearch();
@@ -54,6 +56,7 @@ class PermohonanController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'peralatan' => $this->findModel($id),
         ]);
     }
 
@@ -78,19 +81,45 @@ class PermohonanController extends Controller
             $modelmohonbaru->permohonan_id = $model->permohonan_id;
             $modelmohonbaru->save();
 
-            $image = UploadedFile::getInstance($model, 'file');
-            $model->file= $image->name;
+            // $image = UploadedFile::getInstance($model, 'file');
+            // $model->file= $image->name;
 
-            if($image != '')
-            {
-            $image->saveAs(\Yii::$app->basePath.'/web/uploads/'.$image->name);
-            }
+            // if($image != '')
+            // {
+            // $image->saveAs(\Yii::$app->basePath.'/web/uploads/'.$image->name);
+            // }
 
-            $modelbukulog->bukuLog_fail = $model->file;
+            // $modelbukulog->bukuLog_fail = $model->file;
             $modelbukulog->permohonan_id = $model->permohonan_id;
             $modelbukulog->save();
-             
-            return $this->redirect(['view', 'id' => $model->permohonan_id]);
+
+            $modelsperalatan = Model::createMultiple(Peralatan::classname());
+            Model::loadMultiple($modelsperalatan, Yii::$app->request->post());
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsperalatan) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsperalatan as $modelperalatan) {
+                            $modelperalatan->permohonan_id = $model->permohonan_id;
+                            if (! ($flag = $modelperalatan->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->permohonan_id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
 
         else {
